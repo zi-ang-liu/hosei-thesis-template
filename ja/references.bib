@@ -1,0 +1,96 @@
+% =====================================================================
+%  参考文献データベース
+%  ・本文で \cite{キー} した文献だけが参考文献リストに載る（引用した順に番号が付く）．
+%  ・キーは「第一著者の姓 + 年 + 題目の最初の単語」のように半角英数字で付けるとよい．
+%  ・英語の文献は Google Scholar，日本語の文献は CiNii Research や J-STAGE から
+%    BibTeX をコピーできる．ただし著者名・巻・号・ページ・年は必ず確認する．
+%  ・日本語の文献も英語と同じ形式（article，book など）で書ける．
+%    著者は「姓 名」を and で区切る．
+%  ・著者は原典の順序で全員を記録する．「and others」で手動省略しない．
+%    表示時に省略するかどうかは，採用する参考文献スタイルに従う．
+%  ・Web ページは misc 形式で，URL と参照日を書く（下の例を参照）．
+%  ・注意：このファイルではコメントの中にアットマーク記号を書かないこと
+%    （コメント扱いにならず，文献の始まりと解釈されてエラーになる）．
+%  以下は形式ごとの例．論文の書き方の参考書も含めている．
+% =====================================================================
+
+% --- 書籍（日本語） ---
+@book{kinoshita1981rikakei,
+  author    = {木下 是雄},
+  title     = {理科系の作文技術},
+  series    = {中公新書},
+  publisher = {中央公論社},
+  year      = {1981}
+}
+
+@book{sakai2015kore,
+  author    = {酒井 聡樹},
+  title     = {これから論文を書く若者のために 究極の大改訂版},
+  publisher = {共立出版},
+  year      = {2015}
+}
+
+@book{kanatani2005optimization,
+  author    = {金谷 健一},
+  title     = {これなら分かる最適化数学：基礎原理から計算手法まで},
+  publisher = {共立出版},
+  year      = {2005}
+}
+
+% --- 書籍（英語） ---
+@book{kellerer2004knapsack,
+  author    = {Kellerer, Hans and Pferschy, Ulrich and Pisinger, David},
+  title     = {Knapsack Problems},
+  publisher = {Springer},
+  year      = {2004}
+}
+
+% --- 論文誌（英語） ---
+@article{dantzig1957discrete,
+  author  = {Dantzig, George B.},
+  title   = {Discrete-Variable Extremum Problems},
+  journal = {Operations Research},
+  volume  = {5},
+  number  = {2},
+  pages   = {266--288},
+  year    = {1957}
+}
+
+% --- 国際会議（英語）．大文字を保ちたい語は {} で囲む ---
+@inproceedings{akiba2019optuna,
+  author    = {Akiba, Takuya and Sano, Shotaro and Yanase, Toshihiko and Ohta, Takeru and Koyama, Masanori},
+  title     = {{Optuna}: A Next-generation Hyperparameter Optimization Framework},
+  booktitle = {Proceedings of the 25th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining},
+  pages     = {2623--2631},
+  year      = {2019}
+}
+
+% --- 論文誌（日本語） ---
+@article{nishi2020,
+  author  = {西 竜志},
+  title   = {機械学習と最適化の融合による共進化システム設計},
+  journal = {計測と制御},
+  volume  = {59},
+  number  = {12},
+  pages   = {922--925},
+  year    = {2020}
+}
+
+% --- 論文誌（日本語・共著）：著者は and で区切る ---
+@article{nishi2011,
+  author  = {西 竜志 and 室井 裕喜 and 乾口 雅弘 and 高橋 理 and 片岡 健司},
+  title   = {実乗務制約を有する鉄道乗務員運用計画問題に対する列生成法の適用},
+  journal = {電気学会論文誌 C（電子・情報・システム部門誌）},
+  volume  = {131},
+  number  = {6},
+  pages   = {1199--1208},
+  year    = {2011}
+}
+
+% --- Web ページ ---
+@misc{python,
+  author       = {{Python Software Foundation}},
+  title        = {Python 3 Documentation},
+  howpublished = {\url{https://docs.python.org/3/}},
+  note         = {参照日：2026年11月4日}
+}

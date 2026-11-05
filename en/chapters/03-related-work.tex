@@ -1,0 +1,67 @@
+%% =====================================================================
+%%  Chapter 3: Related Work
+%%  Organize the related studies and explain how this work differs from them.
+%%  End the chapter with the gap in existing work that motivates your method.
+%% =====================================================================
+\chapter{Related Work}
+\label{chap:related-work}
+
+This chapter reviews studies related to this thesis and clarifies its position.
+\begin{writingnote}
+Rather than summarizing papers one by one, group them by viewpoint (e.g., the problem setting or the idea of the method),
+give each group its own section, and discuss the ideas, strengths and limitations of each group.
+For each work, state what it studied, how and what it found, and what it shares with this study and how it differs.
+Point out the limitations of existing work fairly and with evidence, taking into account the aims and assumptions of each study.
+Read every work you cite yourself; avoid citing a work only on the basis of how another paper describes it.
+Use the present perfect for general statements about the literature (``Many methods have been proposed for \ldots''),
+the past tense for what a specific study did (``Dantzig proposed \ldots''),
+and the present tense for facts that are still accepted~\cite{glasmandeal2010science,morleyphrasebank}.
+\end{writingnote}
+
+\section{Studies on XX}
+\label{sec:related-a}
+
+%% Cite with \cite{key}. The key is the name in the first line of each entry in references.bib.
+%% Terms and symbols defined in the previous chapter can be used here (e.g., \cref{sec:problem}).
+Many methods have been studied for the problem described in \cref{sec:problem}.
+For example, Dantzig~\cite{dantzig1957discrete} \ldots.
+Kellerer et al.~\cite{kellerer2004knapsack} \ldots.
+
+\section{Studies on YY}
+\label{sec:related-b}
+
+%% Japanese works are cited in the same way.
+Nishi~\cite{nishi2020} \ldots. Nishi et al.~\cite{nishi2011} \ldots.
+%% When you cite several works at once, the numbers are sorted and compressed, e.g., [1-3].
+Research on \ldots{} is growing~\cite{nishi2011,nishi2020,dantzig1957discrete}.
+
+\section{Position of This Study}
+\label{sec:position}
+
+\begin{writingnote}
+Based on the review in the previous sections, state clearly the problem that existing work has not solved,
+and explain how this study addresses it, which leads to the Proposed Method chapter.
+The problem stated here must match the one stated in the Introduction.
+Choose the viewpoints of the comparison because they matter for the problem, not because they favor this study.
+Before writing that no study has addressed something, search the literature thoroughly,
+and limit the claim, for example, with ``to the best of our knowledge''.
+\end{writingnote}
+
+%% A table that compares existing work with yours from several viewpoints is easy to read.
+\Cref{tab:comparison} compares related work with this study.
+Unlike existing work, which does not consider \ldots, this study considers \ldots.
+
+\begin{table}[tbp]
+  \centering
+  \caption[Comparison of related work and this study (illustrative)]{Comparison of related work and this study (formatting example; the marks are illustrative and do not assess the cited works)}
+  \label{tab:comparison}
+  \begin{tabular}{lccc}
+    \toprule
+    & Viewpoint A & Viewpoint B & Viewpoint C \\
+    \midrule
+    \cite{dantzig1957discrete} & \checkmark & & \\
+    \cite{nishi2011}           & \checkmark & \checkmark & \\
+    This study                 & \checkmark & \checkmark & \checkmark \\
+    \bottomrule
+  \end{tabular}
+\end{table}

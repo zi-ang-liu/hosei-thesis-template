@@ -1,0 +1,97 @@
+% =====================================================================
+%  Bibliography database
+%  - Only the works you cite with \cite{key} appear in the reference list,
+%    numbered in the order of citation.
+%  - Use ASCII keys such as "first author's surname + year + first word of the title".
+%  - You may copy BibTeX entries from Google Scholar or DBLP (and, for Japanese
+%    works, from CiNii Research or J-STAGE), but always check the authors,
+%    volume, number, pages and year.
+%  - Japanese works can be written in the same entry types (article, book, ...).
+%    Separate authors with "and".
+%  - Record all authors in the original order; do not shorten the data with "and others".
+%    Let the selected bibliography style determine whether names are abbreviated in the output.
+%  - For web pages, use the misc type with the URL and the access date (see below).
+%  - Note: never write the at-sign character in comments in this file.
+%    BibTeX does not treat these lines as comments and would read it as the
+%    start of an entry.
+%  The entries below are examples of each type, including books and a website on writing.
+% =====================================================================
+
+% --- Books ---
+@book{zobel2014writing,
+  author    = {Zobel, Justin},
+  title     = {Writing for Computer Science},
+  edition   = {3rd},
+  publisher = {Springer},
+  year      = {2014}
+}
+
+@book{glasmandeal2010science,
+  author    = {Glasman-Deal, Hilary},
+  title     = {Science Research Writing for Non-Native Speakers of English},
+  publisher = {Imperial College Press},
+  year      = {2010}
+}
+
+@book{kellerer2004knapsack,
+  author    = {Kellerer, Hans and Pferschy, Ulrich and Pisinger, David},
+  title     = {Knapsack Problems},
+  publisher = {Springer},
+  year      = {2004}
+}
+
+% --- Journal article ---
+@article{dantzig1957discrete,
+  author  = {Dantzig, George B.},
+  title   = {Discrete-Variable Extremum Problems},
+  journal = {Operations Research},
+  volume  = {5},
+  number  = {2},
+  pages   = {266--288},
+  year    = {1957}
+}
+
+% --- Conference paper. Protect capital letters with braces {} ---
+@inproceedings{akiba2019optuna,
+  author    = {Akiba, Takuya and Sano, Shotaro and Yanase, Toshihiko and Ohta, Takeru and Koyama, Masanori},
+  title     = {{Optuna}: A Next-generation Hyperparameter Optimization Framework},
+  booktitle = {Proceedings of the 25th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining},
+  pages     = {2623--2631},
+  year      = {2019}
+}
+
+% --- Journal articles in Japanese ---
+@article{nishi2020,
+  author  = {西 竜志},
+  title   = {機械学習と最適化の融合による共進化システム設計},
+  journal = {計測と制御},
+  volume  = {59},
+  number  = {12},
+  pages   = {922--925},
+  year    = {2020}
+}
+
+@article{nishi2011,
+  author  = {西 竜志 and 室井 裕喜 and 乾口 雅弘 and 高橋 理 and 片岡 健司},
+  title   = {実乗務制約を有する鉄道乗務員運用計画問題に対する列生成法の適用},
+  journal = {電気学会論文誌 C（電子・情報・システム部門誌）},
+  volume  = {131},
+  number  = {6},
+  pages   = {1199--1208},
+  year    = {2011}
+}
+
+% --- Web pages ---
+@misc{python,
+  author       = {{Python Software Foundation}},
+  title        = {Python 3 Documentation},
+  howpublished = {\url{https://docs.python.org/3/}},
+  note         = {Accessed: 2026-11-04}
+}
+
+@misc{morleyphrasebank,
+  author       = {Morley, John},
+  title        = {{Academic Phrasebank}},
+  howpublished = {The University of Manchester, \url{https://www.phrasebank.manchester.ac.uk/}},
+  note         = {Accessed: 2026-11-05}
+}

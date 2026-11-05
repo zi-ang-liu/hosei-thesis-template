@@ -1,0 +1,81 @@
+%% =====================================================================
+%%  Chapter 4: Proposed Method
+%%  Your own contribution. Keep it separate from the existing knowledge in the
+%%  Preliminaries chapter, and describe it in enough detail that a third party
+%%  could implement and reproduce it.
+%%  The steps and the equation below are examples. Replace them with your own.
+%% =====================================================================
+\chapter{Proposed Method}
+\label{chap:method}
+
+This chapter proposes a method for the YY problem using XX.
+\begin{writingnote}
+Start with the overall picture of the method (what it takes as input, what it outputs and which steps it consists of),
+and only then describe each step in detail; in other words, show the reader the wall before the bricks~\cite{glasmandeal2010science}.
+For each step, state whether you use an existing method as it is, modify an existing method or propose something new.
+Cite the existing methods, and place each citation so that your own ideas are not credited to others, and vice versa.
+\end{writingnote}
+
+\section{Overview}
+\label{sec:overview}
+
+%% Showing the overall picture of the method in a figure first helps the reader.
+%% Simple diagrams can be drawn directly in LaTeX with TikZ (the tikzpicture environment below).
+%% For complex diagrams, use a tool such as draw.io or PowerPoint, save the result as PDF,
+%% and include it with \includegraphics.
+\Cref{fig:flow} shows the flow of the proposed method.
+The method consists of three steps: preprocessing, construction and improvement,
+and the improvement step is repeated until a termination condition is met.
+
+\begin{figure}[tbp]
+  \centering
+  \begin{tikzpicture}[
+      block/.style={draw, thick, fill=black!3, rounded corners, font=\small,
+                    minimum width=36mm, minimum height=8mm, align=center},
+      arrow/.style={-{Stealth[length=2.5mm]}, thick},
+      node distance=5mm,
+    ]
+    \node[block] (input) {Instance};
+    \node[block, below=of input] (pre) {Preprocessing};
+    \node[block, below=of pre] (build) {Construction};
+    \node[block, below=of build] (improve) {Improvement};
+    \node[block, below=of improve] (output) {Solution};
+    \draw[arrow] (input) -- (pre);
+    \draw[arrow] (pre) -- (build);
+    \draw[arrow] (build) -- (improve);
+    \draw[arrow] (improve) -- (output);
+    \draw[arrow] (improve.east) -- ++(8mm, 0) |- node[pos=0.25, right, font=\small, align=left]
+      {repeat until the\\condition is met} (build.east);
+  \end{tikzpicture}
+  \caption{Flow of the proposed method}
+  \label{fig:flow}
+\end{figure}
+
+\section{Details of Each Step}
+\label{sec:procedure}
+
+\begin{writingnote}
+Give enough detail for a third party to implement the method and reproduce the results:
+the inputs and outputs, the operations in each step, the parameters and the termination condition.
+Justify each design choice: explain why you chose this method or evaluation function and why you rejected the alternatives.
+In this chapter, also state the assumptions of the method and the cases in which it may not work well,
+rather than mentioning them for the first time in the conclusion.
+Leave the performance of the method and the experimental results to the Computational Experiments chapter.
+\end{writingnote}
+
+%% The description environment is handy for explaining parallel items such as steps or symbols.
+The steps are as follows.
+\begin{description}
+  \item[Preprocessing] reduces the size of the instance by \ldots.
+  \item[Construction] builds an initial solution by extending the greedy algorithm (\cref{alg:greedy}) so that \ldots.
+  \item[Improvement] improves the solution by \ldots.
+\end{description}
+
+%% Number the key equations of your method and define their symbols right after them.
+The improvement step maximizes the evaluation function $f$ in \cref{eq:penalty}:
+\begin{equation}
+  f(\mathbf{x}) = \sum_{i=1}^{n} v_i x_i - \lambda \max\Bigl\{ 0,\ \sum_{i=1}^{n} w_i x_i - W \Bigr\},
+  \label{eq:penalty}
+\end{equation}
+where $\mathbf{x} = (x_1, \dots, x_n)$ is the vector representing a solution
+and $\lambda > 0$ is the weight of the penalty for exceeding the capacity.

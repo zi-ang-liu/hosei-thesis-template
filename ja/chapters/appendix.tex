@@ -1,0 +1,53 @@
+%% =====================================================================
+%%  付録
+%%  本文に入れると流れを妨げる詳細（証明，追加の実験結果，ソースコードなど）を書く．
+%%  \appendix の後の \chapter は「付録A」「付録B」… となる．
+%% =====================================================================
+\chapter{ソースコード}
+\label{chap:source-code}
+
+%% ソースコードは lstlisting 環境で書く．language= で言語を指定すると色が付く．
+%% ファイルから読み込むこともできる：\lstinputlisting[language=Python]{code/main.py}
+\cref{alg:greedy}の貪欲法を Python で実装した例を\cref{lst:greedy}に示す．
+
+\begin{lstlisting}[language=Python, caption={貪欲法の実装例}, label=lst:greedy]
+def greedy_knapsack(values, weights, capacity):
+    """価値と重さの比が大きい順に品物を選ぶ"""
+    order = sorted(range(len(values)),
+                   key=lambda i: values[i] / weights[i], reverse=True)
+    selected, total_weight = [], 0
+    for i in order:
+        if total_weight + weights[i] <= capacity:  # 容量を超えなければ選ぶ
+            selected.append(i)
+            total_weight += weights[i]
+    return selected
+\end{lstlisting}
+
+\chapter{記号一覧}
+\label{chap:notation}
+
+本論文で用いる主な記号を\cref{tab:notation}に示す．
+スカラーは細字の斜体（例：$x$），ベクトルは太字の小文字（例：$\mathbf{x}$），
+行列は太字の大文字（例：$\mathbf{A}$），集合は花文字（例：$\mathcal{I}$）で表す．
+確率変数を用いる場合は，確率変数を大文字（例：$X$），その値を小文字（例：$x$）で表す．
+
+%% 記号の書き方は，分野の標準的な教科書に合わせるとよい
+%% （例：強化学習なら Sutton と Barto の教科書）．
+\begin{table}[htbp]
+  \centering
+  \caption{主な記号}
+  \label{tab:notation}
+  \begin{tabular}{ll}
+    \toprule
+    記号 & 意味 \\
+    \midrule
+    $n$ & 品物の数 \\
+    $v_i$, $w_i$ & 品物 $i$ の価値，重さ \\
+    $W$ & 容量 \\
+    $x_i$ & 品物 $i$ を選ぶとき 1，選ばないとき 0 をとる決定変数 \\
+    $\mathbf{x}$ & 解を表すベクトル $(x_1, \dots, x_n)$ \\
+    $f(\mathbf{x})$ & 提案手法の評価関数 \\
+    $\lambda$ & ペナルティの重み \\
+    \bottomrule
+  \end{tabular}
+\end{table}

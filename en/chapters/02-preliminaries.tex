@@ -1,0 +1,90 @@
+%% =====================================================================
+%%  Chapter 2: Preliminaries
+%%  Existing knowledge that this work builds on: the definition of the problem
+%%  and the basics of the existing methods. This is NOT your contribution:
+%%  summarize textbooks and papers concisely and cite them.
+%%  Write your own contribution in the Proposed Method chapter and keep
+%%  the two clearly separated.
+%%  As an example, this chapter explains the 0-1 knapsack problem and the
+%%  greedy algorithm. Replace them with the content of your research.
+%% =====================================================================
+\chapter{Preliminaries}
+\label{chap:preliminaries}
+
+This chapter defines the problem studied in this thesis
+and describes the existing method on which the proposed method is based.
+\begin{writingnote}
+Include only the existing knowledge that the reader needs to understand the proposed method and the experiments;
+this chapter is not a textbook.
+Explain definitions and existing methods with citations to the original sources (the original papers or standard textbooks).
+If a term is defined differently in the literature, state which definition this thesis uses and keep to it.
+Follow the notation of the standard textbook in your field and never use one symbol for two meanings;
+a list of the main symbols, as in \cref{chap:notation}, helps.
+The Academic Phrasebank~\cite{morleyphrasebank} lists phrases commonly used to define terms and to describe existing methods.
+\end{writingnote}
+
+\section{Problem Definition}
+\label{sec:problem}
+
+%% Describe the problem in words first, then formulate it, then explain the symbols.
+%% For multi-line formulas use the align environment; & marks the alignment point.
+%% Write the conditions after &&.
+%% Refer to consecutive equations with \crefrange{first}{last}, e.g. "Eqs. (2.1) to (2.3)".
+As an example, consider the 0-1 knapsack problem~\cite{kellerer2004knapsack}.
+Given $n$ items, each with a value and a weight, the problem is to select items
+so that the total value is maximized while the total weight does not exceed the capacity.
+It is formulated as \crefrange{eq:knapsack-objective}{eq:knapsack-binary}:
+\begin{align}
+  \text{maximize}   \quad & \sum_{i=1}^{n} v_i x_i \label{eq:knapsack-objective} \\
+  \text{subject to} \quad & \sum_{i=1}^{n} w_i x_i \le W, \label{eq:knapsack-capacity} \\
+                          & x_i \in \{0, 1\}, && i = 1, \dots, n, \label{eq:knapsack-binary}
+\end{align}
+where $v_i$ and $w_i$ are the value and the weight of item $i$, $W$ is the capacity,
+and $x_i$ is a decision variable that equals 1 if item $i$ is selected and 0 otherwise.
+\Cref{eq:knapsack-objective} maximizes the total value of the selected items,
+and \cref{eq:knapsack-capacity} ensures that their total weight does not exceed the capacity.
+
+%% When there are only a few symbols, define them in the text right after the
+%% equation, as above ("where ...").
+%% When there are many symbols (e.g., a large optimization model), define them
+%% before the formulation, grouped into sets, parameters and decision variables,
+%% with the description environment. Example:
+%%   \begin{description}
+%%     \item[Sets] $\mathcal{I} = \{1, \dots, n\}$ is the set of items.
+%%     \item[Parameters] $v_i$ and $w_i$ are the value and the weight of item $i$,
+%%       and $W$ is the capacity.
+%%     \item[Decision variables] $x_i$ equals 1 if item $i$ is selected and 0 otherwise.
+%%   \end{description}
+
+\section{Existing Method}
+\label{sec:greedy}
+
+\begin{writingnote}
+Explain the idea and the steps of the existing method so that a reader who does not know it can follow them,
+and state its strengths and weaknesses.
+Describe the weaknesses concretely so that they lead to the issues and ideas presented in the later chapters.
+Write any change that you made to the existing method in the Proposed Method chapter, not here.
+Use the present tense to describe existing methods (``The greedy algorithm selects \ldots'').
+\end{writingnote}
+
+%% Write pseudocode in the algorithm environment (algorithm2e package). End each line with \;
+A representative approximation method for the 0-1 knapsack problem is the greedy algorithm,
+which selects items in decreasing order of the ratio $v_i / w_i$~\cite{dantzig1957discrete}.
+\Cref{alg:greedy} shows its procedure.
+The greedy algorithm is fast, but it does not always find an optimal solution.
+
+\begin{algorithm}[tbp]
+  \caption{Greedy algorithm for the 0-1 knapsack problem}
+  \label{alg:greedy}
+  \KwIn{values $v_1, \dots, v_n$, weights $w_1, \dots, w_n$, capacity $W$}
+  \KwOut{set $S$ of selected items}
+  Sort the items in decreasing order of $v_i / w_i$\;
+  $S \gets \emptyset$, $c \gets 0$ \tcp*{$c$ is the total weight of the selected items}
+  \ForEach{item $i$ in the sorted order}{
+    \If{$c + w_i \le W$}{
+      $S \gets S \cup \{i\}$\;
+      $c \gets c + w_i$\;
+    }
+  }
+  \KwRet{$S$}\;
+\end{algorithm}

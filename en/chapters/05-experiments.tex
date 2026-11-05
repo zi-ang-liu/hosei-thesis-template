@@ -1,0 +1,157 @@
+%% =====================================================================
+%%  Chapter 5: Computational Experiments
+%%  Purpose, settings (everything needed to reproduce), results, discussion.
+%%  The experiment and the numbers below are examples (the numbers are made up).
+%%  Replace them with your own experiments.
+%% =====================================================================
+\chapter{Computational Experiments}
+\label{chap:experiments}
+
+\begin{writingnote}
+This chapter is a writing and formatting example. The experimental settings and numerical values,
+including means and standard deviations, are fictional, not measured results.
+Replace them with your own experiments and findings.
+\end{writingnote}
+
+This chapter describes the computational experiments conducted to evaluate the proposed method.
+\begin{writingnote}
+First, state what the experiments are designed to examine (their purpose or research questions),
+in line with the objective stated in the Introduction.
+If you examine several things, present them as numbered questions or experiments,
+and report the results and the discussion in the same order.
+\end{writingnote}
+
+\section{Experimental Settings}
+\label{sec:setup}
+
+\begin{writingnote}
+Give enough information for others to reproduce the experiments:
+the instances (data), the methods compared, the evaluation metrics, the parameters and the computing environment.
+Explain why you chose the instances and the methods compared
+(e.g., the instances are widely used in previous studies, or the method is a representative existing method).
+Plan the experiments so that the comparison is fair; the points to check are listed as comments at this position in the source file.
+\end{writingnote}
+
+%% Points to check when planning the experiments
+%% - Separate tuning/validation data from the final test data; do not tune using final test results.
+%% - Use the same test instances for all methods and report budgets and stopping criteria.
+%% - Run randomized methods with multiple seeds; report the seeds, instance count and runs per instance.
+%% - Distinguish variation across instances from variation across seeds on the same instance.
+%%   State which source of variation each mean and standard deviation summarizes, also in captions.
+%% - Report parameter search ranges, the number of tuning trials and the selection criterion.
+
+%% \paragraph{...} is a run-in heading that does not appear in the table of contents.
+\paragraph{Instances}
+We generated 10 instances of the 0-1 knapsack problem for each number of items $n \in \{100, 200, \dots, 1000\}$.
+The values $v_i$ and weights $w_i$ are integers drawn uniformly from 1 to 100,
+and the capacity $W$ is half of the total weight.
+
+\paragraph{Methods compared}
+We compared the proposed method with an exact method based on dynamic programming~\cite{kellerer2004knapsack}
+and with the greedy algorithm described in \cref{sec:greedy}.
+
+\paragraph{Evaluation metrics}
+We evaluated the gap to the optimal value and the computation time.
+The gap is $100 (z^{*} - z) / z^{*}$ [\%], where $z^{*}$ is the optimal value
+and $z$ is the objective value of the obtained solution.
+
+\paragraph{Parameters and environment}
+%% Put tables in the table environment with the caption ABOVE the table.
+%% Use \toprule, \midrule and \bottomrule (booktabs) and no vertical rules.
+\Cref{tab:parameters} lists the parameters of the proposed method.
+The penalty weight $\lambda$ was tuned with Optuna~\cite{akiba2019optuna}.
+The methods were implemented in Python~\cite{python},
+and all experiments were run on a computer with an XX CPU and XX~GB of memory\footnote{%
+  Environment example: OS XX, Python XX, library XX (version XX).}.
+
+\begin{table}[tbp]
+  \centering
+  \caption{Parameters of the proposed method (fictional settings)}
+  \label{tab:parameters}
+  \begin{tabular}{lc}
+    \toprule
+    Parameter & Value \\
+    \midrule
+    Penalty weight $\lambda$ & 10 \\
+    Number of improvement iterations & 1000 \\
+    Random seed & 0 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Results}
+\label{sec:results}
+
+\begin{writingnote}
+Results do not speak for themselves~\cite{glasmandeal2010science}: refer to each figure and table in the text,
+and state in words the overall trend and the key results that the reader should notice.
+You do not need to repeat every number in a table.
+Report unexpected results and results in which the proposed method is worse, too.
+Before stating that one method is better than another, check that the difference is large compared with the variation
+(e.g., the standard deviation).
+Leave the interpretation of the results (why they were obtained) to the Discussion section.
+Refer to figures and tables in the present tense (``\Cref{fig:results} shows \ldots''),
+and describe what you did in the experiments in the past tense.
+\end{writingnote}
+
+%% Put figures in the figure environment with the caption BELOW the figure.
+%% Store the files in figures/. Save plots as PDF (vector graphics) so that they stay sharp.
+%% Place several figures side by side with the subfigure environment;
+%% \cref then gives "Figure 5.1(a)".
+\Cref{fig:results} shows the gap and the computation time of each method.
+\Cref{fig:results-gap} shows that the gap of the proposed method is smaller than that of the greedy algorithm for every $n$.
+\Cref{fig:results-time} shows that the computation time of the exact method grows rapidly with $n$,
+whereas that of the proposed method grows only about linearly.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{results-gap.pdf}
+    \caption{Gap to the optimal value}
+    \label{fig:results-gap}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{results-time.pdf}
+    \caption{Computation time}
+    \label{fig:results-time}
+  \end{subfigure}
+  \caption[Performance versus the number of items (fictional data)]{Performance versus the number of items $n$ (fictional data; illustrative averages over 10 instances per $n$)}
+  \label{fig:results}
+\end{figure}
+
+\Cref{tab:results} shows the results for $n = 1000$. The best value in each column is shown in bold.
+
+\begin{table}[htbp]
+  \centering
+  \caption[Results for $n = 1000$ (fictional data)]{Results for $n = 1000$ (fictional means $\pm$ standard deviations for 10 instances)}
+  \label{tab:results}
+  \begin{tabular}{lrr}
+    \toprule
+    Method & Gap [\%] & Computation time [s] \\
+    \midrule
+    Exact (DP) & $\mathbf{0.00 \pm 0.00}$ & $83.0 \pm 21.7$ \\
+    Greedy     & $1.07 \pm 0.35$ & $\mathbf{0.01 \pm 0.00}$ \\
+    Proposed   & $0.22 \pm 0.08$ & $2.00 \pm 0.12$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Discussion}
+\label{sec:discussion}
+
+\begin{writingnote}
+Interpret the results; do not simply repeat them.
+For each key result, explain why it was obtained.
+If an explanation is a hypothesis that the experiments did not test, signal it with cautious language
+(``A possible explanation for this is that \ldots'')~\cite{morleyphrasebank}.
+Where possible, compare the results with those reported in previous studies, and state where they agree and where they differ.
+Then discuss, with the results as evidence, under which conditions the proposed method is effective
+and when it is not (its limitations).
+The limitations discussed here lead to the future work in the Conclusion chapter.
+\end{writingnote}
+
+Under the conditions tested, the results indicate \ldots.
+However, \ldots, which limits the applicability of the method to \ldots.

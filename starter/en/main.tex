@@ -1,0 +1,37 @@
+%% English starter. Compile with LuaLaTeX.
+%% Edit thesis information and chapters/. Do not edit the shared cls or latexmkrc.
+\documentclass[en,master]{hosei-thesis}
+
+\titleEN{Thesis Title}
+\titleJA{論文題目}
+\author{法政 太郎}
+\authorkana{ホウセイ タロウ}
+\studentid{25R0000}
+\supervisor{劉 子昂}
+\fiscalyear{2026} % Set to your submission academic year; keep it fixed in the final version.
+
+\begin{document}
+\maketitle
+\frontmatter
+\input{chapters/abstract}
+\tableofcontents
+% \listoffigures
+% \listoftables
+
+\mainmatter
+\input{chapters/01-introduction}
+\input{chapters/02-preliminaries}
+\input{chapters/03-related-work}
+\input{chapters/04-method}
+\input{chapters/05-experiments}
+\input{chapters/06-conclusion}
+\input{chapters/acknowledgments}
+
+%% Add sources to references.bib and use \cite{key} in the text, then enable this line.
+% \bibliography{references}
+%% Enable only if you have actual publications to list.
+% \input{chapters/publications}
+%% Enable both lines below if you need appendices.
+% \appendix
+% \input{chapters/appendix}
+\end{document}

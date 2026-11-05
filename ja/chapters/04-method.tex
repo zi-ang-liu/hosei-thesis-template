@@ -1,0 +1,75 @@
+%% =====================================================================
+%%  第4章 提案手法
+%%  書くこと：自分で考えた部分（提案）．「準備」の章の既存の内容と区別して書く．
+%%  第三者が読んで実装・再現できる程度に具体的に書く．
+%%  以下の手順や式は例．自分の研究に合わせて書き換える．
+%% =====================================================================
+\chapter{提案手法}
+\label{chap:method}
+
+本章では，○○を用いた△△問題の解法を提案する．
+\begin{writingnote}
+最初に提案手法の全体像（何を入力として何を出力するか，どのような手順からなるか）を示し，その後で各手順の詳細を説明する．
+手順ごとに，既存の方法をそのまま用いたのか，既存の方法を変更したのか，新たに考えたのかを明記する．
+既存の方法には引用を付け，引用の位置によって自分の工夫が他人の成果に見えたり，その逆になったりしないように注意する．
+\end{writingnote}
+
+\section{概要}
+\label{sec:overview}
+
+%% 最初に提案手法の全体像を図で示すと，読者が理解しやすい．
+%% 簡単な図は，TikZ を使って LaTeX の中で直接描ける（下の tikzpicture 環境）．
+%% 複雑な図は draw.io や PowerPoint などで作り，PDF で保存して \includegraphics で読み込むとよい．
+提案手法の流れを\cref{fig:flow}に示す．
+提案手法は，前処理，解の構築，解の改善の 3 つの手順からなり，解の改善は終了条件を満たすまで繰り返す．
+
+\begin{figure}[tbp]
+  \centering
+  \begin{tikzpicture}[
+      block/.style={draw, thick, fill=black!3, rounded corners, font=\small,
+                    minimum width=36mm, minimum height=8mm, align=center},
+      arrow/.style={-{Stealth[length=2.5mm]}, thick},
+      node distance=5mm,
+    ]
+    \node[block] (input) {問題例};
+    \node[block, below=of input] (pre) {前処理};
+    \node[block, below=of pre] (build) {解の構築};
+    \node[block, below=of build] (improve) {解の改善};
+    \node[block, below=of improve] (output) {解};
+    \draw[arrow] (input) -- (pre);
+    \draw[arrow] (pre) -- (build);
+    \draw[arrow] (build) -- (improve);
+    \draw[arrow] (improve) -- (output);
+    \draw[arrow] (improve.east) -- ++(8mm, 0) |- node[pos=0.25, right, font=\small, align=left]
+      {終了条件を満たす\\まで繰り返す} (build.east);
+  \end{tikzpicture}
+  \caption{提案手法の流れ}
+  \label{fig:flow}
+\end{figure}
+
+\section{各手順の詳細}
+\label{sec:procedure}
+
+\begin{writingnote}
+第三者が実装し，同じ結果を再現できる程度に具体的に書く．入力と出力，各手順の処理，パラメータ，終了条件を省略しない．
+設計上の選択には理由を添える．なぜその方法や評価関数を選んだのか，ほかの選択肢をなぜ採らなかったのかを説明する．
+手法が前提とする仮定や，うまく働かないと考えられる場合も，「結論」の章で初めて述べるのではなく，この章で述べる．
+手法の性能や実験結果は，この章ではなく「数値実験」の章に書く．
+\end{writingnote}
+
+%% 手順や記号など，並列する項目を説明するときは description 環境が便利．
+各手順の内容は次のとおりである．
+\begin{description}
+  \item[前処理] ……により，問題例の規模を小さくする．
+  \item[解の構築] \cref{alg:greedy}の貪欲法を……のように拡張した方法で，初期解を構築する．
+  \item[解の改善] 構築した解を……により改善する．
+\end{description}
+
+%% 提案手法の中心となる式には番号を付け，記号は式の直後に本文中で定義する．
+解の改善では，\cref{eq:penalty}の評価関数 $f$ を最大化する．
+\begin{equation}
+  f(\mathbf{x}) = \sum_{i=1}^{n} v_i x_i - \lambda \max\Bigl\{ 0,\ \sum_{i=1}^{n} w_i x_i - W \Bigr\}
+  \label{eq:penalty}
+\end{equation}
+ここで，$\mathbf{x} = (x_1, \dots, x_n)$ は解を表すベクトル，
+$\lambda > 0$ は容量を超えた重さに対するペナルティの重みである．

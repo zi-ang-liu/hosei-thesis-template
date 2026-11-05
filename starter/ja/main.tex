@@ -1,0 +1,37 @@
+%% 起稿用（日本語）．LuaLaTeX でコンパイルする．
+%% 論文情報と chapters/ を編集する．共通設定の cls・latexmkrc は編集しない．
+\documentclass[ja,bachelor]{hosei-thesis}
+
+\titleJA{論文題目}
+\titleEN{Thesis Title}
+\author{法政 太郎}
+\authorkana{ホウセイ タロウ}
+\studentid{22X0000}
+\supervisor{劉 子昂}
+\fiscalyear{2026} % 自分の提出年度に変更し，定稿後は固定する．
+
+\begin{document}
+\maketitle
+\frontmatter
+\input{chapters/abstract}
+\tableofcontents
+% \listoffigures
+% \listoftables
+
+\mainmatter
+\input{chapters/01-introduction}
+\input{chapters/02-preliminaries}
+\input{chapters/03-related-work}
+\input{chapters/04-method}
+\input{chapters/05-experiments}
+\input{chapters/06-conclusion}
+\input{chapters/acknowledgments}
+
+%% references.bib に文献を登録し，本文で \cite{キー} を使ってから次の行を有効にする．
+% \bibliography{references}
+%% 実際の研究業績がある場合のみ有効にする．
+% \input{chapters/publications}
+%% 付録が必要な場合は，次の2行を両方有効にする．
+% \appendix
+% \input{chapters/appendix}
+\end{document}

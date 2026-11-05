@@ -1,0 +1,28 @@
+# LaTeX の中間ファイル
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.synctex.gz
+
+# ビルドした PDF（サンプル PDF は make dist で dist/ に作る）
+ja/main.pdf
+en/main.pdf
+starter/ja/main.pdf
+starter/en/main.pdf
+main-review.*
+
+# 配布物（GitHub Releases や Overleaf にアップロードする）
+dist/
+
+# make figures の作業用フォルダ
+figure-sources/build/
+
+# macOS
+.DS_Store

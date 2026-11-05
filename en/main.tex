@@ -1,0 +1,67 @@
+%% =====================================================================
+%%  Master's thesis template (English)
+%%  Hosei University, Graduate School of Science and Engineering
+%%  Intelligent Systems Laboratory
+%% ---------------------------------------------------------------------
+%%  - Compile with LuaLaTeX (on Overleaf: Menu -> Settings -> Compiler).
+%%  - Edit: the "Thesis information" below, the chapters in chapters/,
+%%          references.bib (bibliography) and figures/ (figures).
+%%  - Do not edit hosei-thesis.cls or latexmkrc.
+%%  - See README.md for details.
+%% =====================================================================
+
+%  Class options
+%    ja / en            language of the thesis (Japanese / English)
+%    bachelor / master  bachelor's thesis / master's thesis
+%    review             add this when you send a draft to your supervisor
+%                       (shows line numbers, \TODO and \rev; remove it for submission)
+\documentclass[en,master]{hosei-thesis}
+
+%% ---------------------------------------------------------------------
+%%  Thesis information (printed on the cover page)
+%%  The cover follows the format required by the Graduate School,
+%%  so its labels are in Japanese.
+%% ---------------------------------------------------------------------
+%  Use \\ to choose where a long title breaks on the cover
+%  (Japanese text can otherwise break in the middle of a word).
+\titleEN{Solving the YY Problem Using XX}            % title (English)
+\titleJA{○○を用いた△△問題の解法}                     % title (Japanese)
+\author{法政 太郎}             % name (as registered at the university)
+\authorkana{ホウセイ タロウ}    % name in katakana (フリガナ, required)
+\studentid{25R0000}           % student ID (学生証番号)
+\supervisor{劉 子昂}           % supervisor (指導教員)
+\fiscalyear{2026}             % set to your submission academic year and keep it fixed (April-March)
+
+%% ---------------------------------------------------------------------
+%%  Extra packages and your own commands (only if needed).
+%%  Packages for figures, tables, math, algorithms and code are already loaded.
+%% ---------------------------------------------------------------------
+% \usepackage{...}
+% \newcommand{\vect}[1]{\boldsymbol{#1}}
+
+\begin{document}
+
+\maketitle                         % cover page
+
+\frontmatter                       % front matter (pages i, ii, ...)
+\input{chapters/abstract}          % Abstract (English) and 要旨 (Japanese)
+\tableofcontents
+\listoffigures
+\listoftables
+
+\mainmatter                        % main text (pages 1, 2, ...)
+\input{chapters/01-introduction}    % Introduction
+\input{chapters/02-preliminaries}   % Preliminaries (existing knowledge)
+\input{chapters/03-related-work}    % Related Work
+\input{chapters/04-method}          % Proposed Method (your contribution)
+\input{chapters/05-experiments}     % Computational Experiments
+\input{chapters/06-conclusion}      % Conclusion
+
+\input{chapters/acknowledgments}
+\bibliography{references}          % generated from references.bib
+\input{chapters/publications}      % list of publications (delete this line if you have none)
+
+\appendix                          % appendices (Appendix A, B, ...)
+\input{chapters/appendix}
+
+\end{document}

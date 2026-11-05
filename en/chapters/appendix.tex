@@ -1,0 +1,55 @@
+%% =====================================================================
+%%  Appendices
+%%  Details that would interrupt the main text: proofs, additional results,
+%%  source code, and so on. Each \chapter after \appendix becomes
+%%  "Appendix A", "Appendix B", ...
+%% =====================================================================
+\chapter{Source Code}
+\label{chap:source-code}
+
+%% Put source code in the lstlisting environment; language= enables syntax colouring.
+%% You can also read a file: \lstinputlisting[language=Python]{code/main.py}
+\Cref{lst:greedy} shows an implementation of the greedy algorithm (\cref{alg:greedy}) in Python.
+
+\begin{lstlisting}[language=Python, caption={Implementation of the greedy algorithm}, label=lst:greedy]
+def greedy_knapsack(values, weights, capacity):
+    """Select items in decreasing order of value per weight."""
+    order = sorted(range(len(values)),
+                   key=lambda i: values[i] / weights[i], reverse=True)
+    selected, total_weight = [], 0
+    for i in order:
+        if total_weight + weights[i] <= capacity:  # select if it fits
+            selected.append(i)
+            total_weight += weights[i]
+    return selected
+\end{lstlisting}
+
+\chapter{Notation}
+\label{chap:notation}
+
+\Cref{tab:notation} lists the main symbols used in this thesis.
+Scalars are written in italic (e.g., $x$), vectors in bold lowercase letters (e.g., $\mathbf{x}$),
+matrices in bold capital letters (e.g., $\mathbf{A}$) and sets in calligraphic letters (e.g., $\mathcal{I}$).
+When random variables are used, they are written in capital letters (e.g., $X$)
+and their values in lowercase letters (e.g., $x$).
+
+%% Follow the notation of the standard textbook in your field
+%% (for reinforcement learning, the textbook by Sutton and Barto).
+\begin{table}[htbp]
+  \centering
+  \caption{Main symbols}
+  \label{tab:notation}
+  \begin{tabular}{ll}
+    \toprule
+    Symbol & Meaning \\
+    \midrule
+    $n$ & number of items \\
+    $v_i$, $w_i$ & value and weight of item $i$ \\
+    $W$ & capacity \\
+    $x_i$ & decision variable that equals 1 if item $i$ is selected and 0 otherwise \\
+    $\mathbf{x}$ & vector $(x_1, \dots, x_n)$ representing a solution \\
+    $f(\mathbf{x})$ & evaluation function of the proposed method \\
+    $\lambda$ & penalty weight \\
+    \bottomrule
+  \end{tabular}
+\end{table}

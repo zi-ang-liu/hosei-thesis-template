@@ -1,0 +1,63 @@
+%% =====================================================================
+%%  卒業論文テンプレート（日本語版）
+%%  法政大学 理工学部 経営システム工学科  知能システム研究室
+%% ---------------------------------------------------------------------
+%%  ・コンパイル：LuaLaTeX（Overleaf では Menu → Settings → Compiler）
+%%  ・書き換えるもの：このファイルの「論文情報」，chapters/ の各章，
+%%                    references.bib（参考文献），figures/（図）
+%%  ・hosei-thesis.cls と latexmkrc は編集しないこと
+%%  ・詳しい使い方は README.md を参照
+%% =====================================================================
+
+%  クラスオプション
+%    ja / en            本文の言語（日本語 / 英語）
+%    bachelor / master  卒業論文 / 修士論文
+%    review             指導教員に見せるときに付ける
+%                       （行番号・\TODO・\rev の色付けを表示．提出する版では外す）
+\documentclass[ja,bachelor]{hosei-thesis}
+
+%% ---------------------------------------------------------------------
+%%  論文情報（表紙に印刷される）
+%% ---------------------------------------------------------------------
+%  日本語は単語の途中でも改行されるので，題目が長いときは \\ で改行位置を指定する
+\titleJA{○○を用いた△△問題の解法}                     % 論文題目（和文）
+\titleEN{Solving the YY Problem Using XX}            % 論文題目（英文）
+\author{法政 太郎}             % 氏名
+\authorkana{ホウセイ タロウ}    % フリガナ
+\studentid{22X0000}           % 学生証番号
+\supervisor{劉 子昂}           % 指導教員
+\fiscalyear{2026}             % 提出する年度に変更し，定稿時に固定する（4月〜翌年3月）
+
+%% ---------------------------------------------------------------------
+%%  追加のパッケージや自作コマンド（必要なときだけ）
+%%  よく使うもの（図・表・数式・アルゴリズム・ソースコード）は読み込み済み
+%% ---------------------------------------------------------------------
+% \usepackage{...}
+% \newcommand{\vect}[1]{\boldsymbol{#1}}
+
+\begin{document}
+
+\maketitle                         % 表紙
+
+\frontmatter                       % 前付け（ページ番号は i, ii, ...）
+\input{chapters/abstract}          % 要旨
+\tableofcontents                   % 目次
+% \listoffigures                   % 図目次（必要なら）
+% \listoftables                    % 表目次（必要なら）
+
+\mainmatter                        % 本文（ページ番号は 1, 2, ...）
+\input{chapters/01-introduction}    % はじめに
+\input{chapters/02-preliminaries}   % 準備（既存の知識）
+\input{chapters/03-related-work}    % 関連研究
+\input{chapters/04-method}          % 提案手法（自分の提案）
+\input{chapters/05-experiments}     % 数値実験
+\input{chapters/06-conclusion}      % 結論
+
+\input{chapters/acknowledgments}   % 謝辞
+\bibliography{references}          % 参考文献（references.bib から自動で作られる）
+\input{chapters/publications}      % 研究業績（業績がない場合はこの行を削除する）
+
+\appendix                          % ここから付録（付録A，付録B，...）
+\input{chapters/appendix}
+
+\end{document}
