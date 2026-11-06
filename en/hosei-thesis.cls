@@ -349,6 +349,10 @@
 \def\hosei@authorkana{}
 \def\hosei@studentid{}
 \def\hosei@supervisor{}
+% 氏名も空にしておく．LaTeX の既定値は警告を出す命令で，\author がないと
+% hyperref の pdfauthor（下の \AtBeginDocument）と silence の組み合わせで
+% \begin{document} から先に進まなくなる（未設定は \maketitle で警告する）
+\def\@author{}
 % 年度：4月〜翌年3月（例：2027年2月の提出なら 2026年度）
 \edef\hosei@fiscalyear{\the\numexpr\year-\ifnum\month<4 1\else 0\fi\relax}
 \ifhosei@master
@@ -390,25 +394,57 @@
 %%  表紙（\maketitle）
 %%   「修士論文の提出について」（理工学研究科）の記載事項をすべて含む：
 %%   年度・論文種別，論文題名，指導教員，所属，学生証番号，フリガナ，氏名．
-%%   配置は見やすさを優先し，上段に年度と種別，中段に題目，
-%%   下段に所属・学生・指導教員をまとめた．
+%%   配置は見やすさを優先し，上段に所属と年度・種別，中段に題目，
+%%   下段に氏名・学生証番号・指導教員をまとめた．
+%%    ・所属は 1 行に収まれば 1 行（学部の既定値），長ければ 2 行（修士の既定値）
+%%    ・下段の 3 行は同じ行送りにする．行の高さを支柱で決めるので，
+%%      日本語版と英語版（行間 1.5 倍）で同じ間隔になる
+%%    ・フリガナは氏名の上に小さく置き，行送りには含めない
+%%      （氏名を先頭の行にするので，フリガナが行の間に入り込まない）
 %% ---------------------------------------------------------------------
+% \hosei@warnempty{マクロ}{項目名} : マクロが空なら警告する
 \newcommand\hosei@warnempty[2]{%
-  \expandafter\ifx\csname hosei@#1\endcsname\@empty
+  \ifx#1\@empty
     \ClassWarningNoLine{hosei-thesis}{#2 が設定されていません（main.tex）}%
   \fi}
+% ラベルは 5 文字分の幅に均等割りでそろえる
+\newcommand\hosei@coverlabel[1]{\makebox[5\zw][l]{#1}}
+% 下段の行送りと，それを固定する支柱（基線より上 0.7，下 0.3）
+\newlength\hosei@coverpitch
+\setlength\hosei@coverpitch{10mm}
+\newcommand\hosei@coverstrut{\rule[-.3\hosei@coverpitch]{0pt}{\hosei@coverpitch}}
+% 氏名の上にフリガナを中央揃えで置く（高さは 0 として扱う）
+\newcommand\hosei@namewithkana{%
+  \ifx\hosei@authorkana\@empty
+    \@author
+  \else
+    \setbox\z@\hbox{\@author}%
+    \rlap{\smash{\raisebox{\dimexpr\ht\z@+1.5mm\relax}{%
+      \makebox[\wd\z@][c]{\footnotesize\hosei@authorkana}}}}%
+    \box\z@
+  \fi}
 \renewcommand\maketitle{%
-  \hosei@warnempty{maintitle}{論文題目 \ifhosei@en\string\titleEN\else\string\titleJA\fi}%
-  \hosei@warnempty{studentid}{学生証番号 \string\studentid}%
-  \hosei@warnempty{supervisor}{指導教員 \string\supervisor}%
-  \ifhosei@master\hosei@warnempty{authorkana}{フリガナ \string\authorkana}\fi
+  \hosei@warnempty\hosei@maintitle
+    {論文題目 \ifhosei@en\string\titleEN\else\string\titleJA\fi}%
+  \hosei@warnempty\@author{氏名 \string\author}%
+  \hosei@warnempty\hosei@studentid{学生証番号 \string\studentid}%
+  \hosei@warnempty\hosei@supervisor{指導教員 \string\supervisor}%
+  \ifhosei@master\hosei@warnempty\hosei@authorkana{フリガナ \string\authorkana}\fi
   \begin{titlepage}%
     \hypersetup{pageanchor=false}%
     \centering\normalfont
-    % ── 上段：年度と論文の種類
-    \vspace*{12mm}%
+    % ── 上段：所属，年度と論文の種類
+    \vspace*{8mm}%
+    {\large
+     \setbox\z@\hbox{\hosei@affiliationi\ \hosei@affiliationii}%
+     \ifdim\wd\z@>.8\linewidth
+       \hosei@affiliationi\par\hosei@affiliationii\par
+     \else
+       \hosei@affiliationi\ \hosei@affiliationii\par
+     \fi}%
+    \vspace{4mm}%
     {\Large\hosei@fiscalyear 年度\hspace{1\zw}\hosei@thesistype\par}%
-    \vspace{30mm}%
+    \vspace{24mm}%
     % ── 中段：題目（上下を細い罫線で区切る）
     \rule{\linewidth}{0.6pt}\par
     \vspace{10mm}%
@@ -420,23 +456,17 @@
     \vspace{10mm}%
     \rule{\linewidth}{0.6pt}\par
     \vfill
-    % ── 下段：所属・学生・指導教員
-    %    ラベルは 5 文字分の幅に均等割りでそろえ，値はすべて同じ大きさにする
+    % ── 下段：氏名（フリガナ）・学生証番号・指導教員（3 行，等間隔）
     {\large
+    \renewcommand\arraystretch{0}% 標準の支柱を消し，行送りは \hosei@coverstrut で決める
     \begin{tabular}{@{}l@{\hspace{2\zw}}l@{}}
-      \hosei@coverlabel{所\hfill 属} & \hosei@affiliationi \\
-        & \hosei@affiliationii \\[4mm]
-      \hosei@coverlabel{学生証番号} & \hosei@studentid \\[4mm]
-      \ifx\hosei@authorkana\@empty\else
-        & {\footnotesize\hosei@authorkana} \\[-1mm]
-      \fi
-      \hosei@coverlabel{氏\hfill 名} & \@author \\[4mm]
-      \hosei@coverlabel{指\hfill 導\hfill 教\hfill 員} & \hosei@supervisor \\
+      \hosei@coverlabel{氏\hfill 名} & \hosei@coverstrut\hosei@namewithkana \\
+      \hosei@coverlabel{学生証番号} & \hosei@coverstrut\hosei@studentid \\
+      \hosei@coverlabel{指\hfill 導\hfill 教\hfill 員} & \hosei@coverstrut\hosei@supervisor \\
     \end{tabular}\par}%
-    \vspace*{14mm}%
+    \vspace*{16mm}%
   \end{titlepage}%
 }
-\newcommand\hosei@coverlabel[1]{\makebox[5\zw][l]{#1}}
 
 %% ---------------------------------------------------------------------
 %%  前付け・本文・付録
