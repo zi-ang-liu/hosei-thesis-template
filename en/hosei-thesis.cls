@@ -17,7 +17,7 @@
 %%  エンジン : LuaLaTeX のみ（参考文献は upBibTeX + junsrt）
 %% =====================================================================
 \NeedsTeXFormat{LaTeX2e}[2022/06/01]
-\ProvidesClass{hosei-thesis}[2026/11/05 v2.2.0 Hosei University thesis class (ISL)]
+\ProvidesClass{hosei-thesis}[2026/11/10 v2.2.1 Hosei University thesis class (ISL)]
 
 %% ---------------------------------------------------------------------
 %%  エンジンの確認（pdfLaTeX などでは分かりやすいエラーを出して止める）
@@ -324,6 +324,11 @@
   \hosei@jacref{algorithm}{アルゴリズム}{}
   \hosei@jacref{listing}{コード}{}
   \hosei@jacref{footnote}{脚注}{}
+  % 種類の異なる参照をまとめたとき（\cref{fig:a,tab:b} →「図4.1と表5.2」）の接続詞
+  % （cleveref の既定は英語の and）
+  \newcommand\crefpairgroupconjunction{と}
+  \newcommand\crefmiddlegroupconjunction{，}
+  \newcommand\creflastgroupconjunction{，}
 \fi
 
 %% ---------------------------------------------------------------------
@@ -500,8 +505,13 @@
 % 要旨・Abstract・謝辞
 \newenvironment{abstractJA}{%
   \hosei@unnumberedchapter{要旨}%
-  % 英語版でも，和文の段落は最初の段落から全角1文字下げる
-  \ifhosei@en\setlength{\parindent}{1\zw}\@afterindenttrue\fi}{\par}
+  % 英語版でも，和文の段落は最初の段落から全角1文字下げる．
+  % また，「……」や「—」などを和文フォントで組む（英語版では範囲 9 を欧文扱いにしているため．
+  % この環境の中だけ和文扱いに戻す）
+  \ifhosei@en
+    \setlength{\parindent}{1\zw}\@afterindenttrue
+    \ltjsetparameter{jacharrange={+9}}%
+  \fi}{\par}
 \newenvironment{abstractEN}{%
   \hosei@unnumberedchapter{Abstract}%
   \ifhosei@en\else\setlength{\parindent}{1.5em}\fi}{\par}
@@ -540,14 +550,16 @@
 %%  添削用の機能
 %%   \TODO{...} : review 時は赤字で表示．final 時は表示せず警告を出す
 %%   \rev{...}  : review 時は青字（修正箇所）．final 時は通常の文字
+%%   見出しやキャプションの中でも使えるように，どちらも robust にしておく
+%%   （目次などへの書き出しのときに警告の命令が展開されるとエラーになる）
 %% ---------------------------------------------------------------------
-\newcommand\TODO[1]{%
+\DeclareRobustCommand\TODO[1]{%
   \ifhosei@review
     {\color{red}\sffamily\bfseries [TODO: #1]}%
   \else
     \ClassWarning{hosei-thesis}{TODO remains: \detokenize{#1}}%
   \fi}
-\newcommand\rev[1]{\ifhosei@review{\color{blue}#1}\else#1\fi}
+\DeclareRobustCommand\rev[1]{\ifhosei@review{\color{blue}#1}\else#1\fi}
 
 \ifhosei@review
   \renewcommand\linenumberfont{\normalfont\tiny\sffamily\color{gray}}

@@ -87,6 +87,8 @@ The examples in the chapters (the 0-1 knapsack problem and so on) only show how 
 
 - `\cref` adds "Figure", "Table", "Chapter", "Eq." and the number automatically. Never type numbers by hand.
 - Start label names with `chap:`, `sec:`, `fig:`, `tab:`, `eq:`, `alg:` or `lst:` to keep them organized.
+- Write algorithms with the algorithm2e package, which is already loaded. It cannot be combined with the `algorithm`, `algorithmic` or `algpseudocode` packages, so do not add them with `\usepackage`.
+  Rewrite pseudocode taken from other sources in algorithm2e syntax.
 
 ## Bibliography (references.bib)
 
